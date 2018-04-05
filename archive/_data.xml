@@ -104,6 +104,8 @@
 	</quotes>
 	
 	<press-can-request-copy>TRUE</press-can-request-copy> <!-- can be true or false -->
+	<woovit>https://woovit.info/yourgame</woovit>
+	<keymailer>https://www.keymailer.co/g/games/yourgame</keymailer>
 	<monetization-permission>monetize</monetization-permission> <!-- can be: 	false (no video allowed),
 																			 	ask (permission on case-per-case basis),
 																			 	non-commercial (no monetization allowed),

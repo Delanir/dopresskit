@@ -155,6 +155,10 @@ foreach( $files as $keyfile ) {
 // Set default value for monetize
 $monetize = 0;
 
+// Set default value for alternate key distribution services
+$keymailer = FALSE;
+$woovit = FALSE;
+
 foreach( $xml->children() as $child )
 {
 	switch( $child->getName() )
@@ -245,6 +249,12 @@ foreach( $xml->children() as $child )
 			else if( strtolower($child) == "ask") $monetize = 2;
 			else if( strtolower($child) == "non-commercial") $monetize = 3;
 			else if( strtolower($child) == "monetize") $monetize = 4;
+			break;
+		case("woovit"):
+			$woovit = $child;
+			break;
+		case("keymailer"):
+			$keymailer = $child;
 			break;
 		case("additionals"):
 			$additionals = array();
@@ -768,24 +778,52 @@ if( count($promoterquotes) + count($quotes) > 0 )
 if( $press_request == TRUE )
 {
 	echo '<h2 id="preview">'.tl('Request Press Copy').'</h2>';
-	echo '<p>'. tl("Please fill in your e-mail address below to complete a distribute() request and we'll get back to you as soon as a press copy is available for you.") .'<br/>';
+	echo '<p>Use one of the following methods to request a press copy.<br><br><strong>Request a copy on distribute()</strong><br>'. tl("Please fill in your e-mail address below to complete a distribute() request and we'll get back to you as soon as a press copy is available for you.") .'<br/>';
 	echo '<div id="mailform">';
 	echo '<form id="pressrequest" class="uk-form" method="POST" action="'.$url.'">';
 	echo '<input type="email" id="email" name="email" placeholder="name@yourdomain.com" style="width:100%;"></input>';
 	echo '<input type="hidden" id="key" name="key" value="'.$key.'"></input><br/>';
 	echo '<input type="submit" class="uk-button" id="submit-button" value="'. tl('request a press copy') .'" style="width:100%;"></input>';
-	echo '<p>'. tlHtml('Alternatively, you can always request a press copy by <a href="#contact">sending us a quick email</a>.').'</p>';
 	echo '</div>';
+	if( $woovit != FALSE ) {
+		echo '<p><strong>Request a copy on Woovit</strong><br>'. tlHtml('Please use the button below to request a press copy on <a href="'.$woovit.'">Woovit</a>.').'</p>';
+		echo '<input type="button" class="uk-button" value="'. tl('request a press copy') .'" onclick="window.open(\''.$woovit.'\')"   style="width:100%;"></input>';
+	}
+	if( $keymailer != FALSE ) {
+		echo '<p><strong>Request a copy on Keymailer</strong><br>'. tlHtml('Please use the button below to request a press copy on <a href="'.$keymailer.'">Keymailer</a>.').'</p>';
+		echo '<input type="button" class="uk-button" value="'. tl('request a press copy') .'" onclick="window.open(\''.$keymailer.'\')"   style="width:100%;"></input>';
+	}
+	echo '<p>'. tlHtml('Alternatively, you can always request a press copy by <a href="#contact">sending us a quick email</a>.').'</p>';
 	echo '<hr>';
 } else {
 	if( $press_request_fail == TRUE ) {
 		echo '<h2 id="preview">'.tl('Request Press Copy').'</h2>';
+		echo '<p>Use one of the following methods to request a press copy.<br><br><strong>Request a copy on distribute()</strong><br>'
 		echo '<p>'.$press_request_fail_msg.'</p>';
+		if( $woovit != FALSE ) {
+			echo '<p><strong>Request a copy on Woovit</strong><br>'. tlHtml('Please use the button below to request a press copy on <a href="'.$woovit.'">Woovit</a>.').'</p>';
+			echo '<input type="button" class="uk-button" value="'. tl('request a press copy') .'" onclick="window.open(\''.$woovit.'\')"   style="width:100%;"></input>';
+		}
+		if( $keymailer != FALSE ) {
+			echo '<p><strong>Request a copy on Keymailer</strong><br>'. tlHtml('Please use the button below to request a press copy on <a href="'.$keymailer.'">Keymailer</a>.').'</p>';
+			echo '<input type="button" class="uk-button" value="'. tl('request a press copy') .'" onclick="window.open(\''.$keymailer.'\')"   style="width:100%;"></input>';
+		}
+		echo '<p>'. tlHtml('Alternatively, you can always request a press copy by <a href="#contact">sending us a quick email</a>.').'</p>';
 		echo '<hr>';
 	}
 	if( $press_request_outdated_warning == TRUE ) {
 		echo '<h2 id="preview">'.tl('Request Press Copy').'</h2>';
+		echo '<p>Use one of the following methods to request a press copy.<br><br><strong>Request a copy on distribute()</strong><br>'
 		echo '<p>'.tl("We are afraid this developer has not upgraded their presskit() to use distribute(). For security purposes, this form has been disabled.").'</p>';
+		if( $woovit != FALSE ) {
+			echo '<p><strong>Request a copy on Woovit</strong><br>'. tlHtml('Please use the button below to request a press copy on <a href="'.$woovit.'">Woovit</a>.').'</p>';
+			echo '<input type="button" class="uk-button" value="'. tl('request a press copy') .'" onclick="window.open(\''.$woovit.'\')"   style="width:100%;"></input>';
+		}
+		if( $keymailer != FALSE ) {
+			echo '<p><strong>Request a copy on Keymailer</strong><br>'. tlHtml('Please use the button below to request a press copy on <a href="'.$keymailer.'">Keymailer</a>.').'</p>';
+			echo '<input type="button" class="uk-button" value="'. tl('request a press copy') .'" onclick="window.open(\''.$keymailer.'\')"   style="width:100%;"></input>';
+		}
+		echo '<p>'. tlHtml('Alternatively, you can always request a press copy by <a href="#contact">sending us a quick email</a>.').'</p>';
 		echo '<hr>';
 	}
 }
